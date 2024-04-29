@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import functions
 from PIL import ImageTk, Image
 
 listKoef = []
@@ -23,11 +23,13 @@ def option():
 
 def matrixKoef():
     def zchitKoef():
+        global listKoef
         listKoef = []
         for koef in ent31.get().split(','):
             listKoef.append(int(koef))
 
     def zchitViln():
+        global listViln
         listViln = []
         for viln in ent32.get().split(','):
             listViln.append(int(viln))
@@ -58,6 +60,24 @@ def matrixKoef():
     root3.wait_window()
 
 
+def slar():
+    root4 = tk.Toplevel(root)
+    lab41 = tk.Label(root4, text=functions.funcslar(listKoef, listViln), font=("Arial", 20))
+    lab41.grid(row=0, column=0, sticky='wens')
+    root4.title('СЛАР')
+    root4.grid_rowconfigure(0, minsize=50)
+    root4.geometry("500x400")
+    root4.wait_window()
+
+
+def rozv():
+    koren = []
+    for i in range(len(listViln)):
+        koren.append(0)
+    for i1 in range(len(listKoef)):
+        a = listKoef[i1 * (len(listViln) + i1)]
+
+
 # labels
 
 lab1 = tk.Label(text='Лабораторна робота №5', font=("Times New Roman", 15))
@@ -65,17 +85,23 @@ lab1 = tk.Label(text='Лабораторна робота №5', font=("Times Ne
 # main buttons
 but1 = tk.Button(text='Ввести коефіціенти матриці', font=("Times New Roman", 12), command=matrixKoef)
 but2 = tk.Button(text='Завдання за варіантом', font=("Times New Roman", 12), command=option)
+but3 = tk.Button(text='Подивитись вид СЛАР', font=("Times New Roman", 12), command=slar)
+but4 = tk.Button(text="Розв'язок СЛАР", font=("Times New Roman", 12), command=rozv)
 
 # grid
 lab1.grid(row=0, column=0, sticky='wens')
 but1.grid(row=2, column=0, sticky='wens')
 but2.grid(row=1, column=0, sticky='wens')
+but3.grid(row=3, column=0, sticky='wens')
+but4.grid(row=4, column=0, sticky='wens')
 
 # root
 
 root.grid_rowconfigure(0, minsize=50)
 root.grid_rowconfigure(1, minsize=50)
 root.grid_rowconfigure(2, minsize=50)
+root.grid_rowconfigure(3, minsize=50)
+root.grid_rowconfigure(4, minsize=50)
 root.grid_columnconfigure(0, minsize=500)
 root.geometry("500x500")
 root.mainloop()
